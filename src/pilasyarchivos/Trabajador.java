@@ -14,6 +14,14 @@ public class Trabajador {
     private float vrHoraTrabajada;
     private float totalSalario;
 
+    
+    public Trabajador(String nombre, int horasTrabajadas, float vrHoraTrabajada) {
+        this.nombre = nombre;
+        this.horasTrabajadas = horasTrabajadas;
+        this.vrHoraTrabajada = vrHoraTrabajada;
+        this.totalSalario = calcularSalario(horasTrabajadas, vrHoraTrabajada);
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -46,7 +54,7 @@ public class Trabajador {
         this.totalSalario = totalSalario;
     }
     
-    public void calcularSalario(int horas, float salarioPorHora) {
+    public float calcularSalario(int horas, float salarioPorHora) {
         float salida;
         if(horas >48) {
             salida = (40*salarioPorHora) + (8*(salarioPorHora*2)) + ((horas-48)*(salarioPorHora*3));
@@ -59,7 +67,14 @@ public class Trabajador {
         else {
             salida = horas*salarioPorHora;
         }
-        totalSalario = salida;
+        return salida;
+    }
+    
+    
+
+    @Override
+    public String toString() {
+        return String.format("Nombre: %s\n Horas trabajadas: %d\n Salario por hora: %.2f\n Salario total: %.2f", nombre, horasTrabajadas, vrHoraTrabajada, totalSalario);
     }
     
 }
