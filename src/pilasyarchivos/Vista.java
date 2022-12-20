@@ -43,11 +43,11 @@ public class Vista extends javax.swing.JFrame {
         tabTrabajadores.setModel(modelo);
     }
 
-    void configModelo() {
+    private void configModelo() {
         modelo.setColumnIdentifiers(new String[]{"Nombre", "Horas trabajadas", "Valor hora", "Salario"});
     }
 
-    void llenarTabla() {
+    private void llenarTabla() {
         NodoTrabajador aux = p.getPila();
         while (aux != null) {
             modelo.addRow(new Object[]{aux.getTrabajador().getNombre(), aux.getTrabajador().getHorasTrabajadas(),
