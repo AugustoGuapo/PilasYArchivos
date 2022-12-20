@@ -74,4 +74,16 @@ public class PilaTrabajador implements Pila<NodoTrabajador> {
         }
     }
     
+    public float calcularPromedio() {
+        NodoTrabajador aux = pila;
+        float sumatoria = 0;
+        int contador = 0;
+        while(aux != null) {
+            sumatoria += aux.getTrabajador().getTotalSalario();
+            contador++;
+        }
+        return sumatoria/contador;
+        
+    }
+    
 }
