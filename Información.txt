@@ -1,0 +1,7 @@
+Promedio de salario 1579500,00
+Salario más alto
+Nombre: d
+Salario: 4000,00
+Salario más bajo
+Nombre: Morty
+Salario: 8000000,00

@@ -81,9 +81,16 @@ public class PilaTrabajador implements Pila<NodoTrabajador> {
         while(aux != null) {
             sumatoria += aux.getTrabajador().getTotalSalario();
             contador++;
+            aux = aux.getSiguiente();
         }
         return sumatoria/contador;
         
+    }
+    
+    public NodoTrabajador ultimo() {
+        NodoTrabajador aux = pila;
+        while(aux.getSiguiente() != null) aux = aux.getSiguiente();
+        return aux;
     }
     
 }
