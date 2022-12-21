@@ -4,7 +4,10 @@
  */
 package pilasyarchivos;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -25,7 +28,7 @@ public class Informes {
         else {
             while(aux != null && aux.getTrabajador().getTotalSalario() > salarioBuscado ) {
                 Trabajador trabajadorTemp = aux.getTrabajador();
-                fw.write(trabajadorTemp.getNombre());
+                fw.write(trabajadorTemp.getNombre()+"\n");
                 fw.write(String.valueOf(trabajadorTemp.getTotalSalario()));
                 fw.write("\n");
                 aux = aux.getSiguiente();
@@ -41,9 +44,10 @@ public class Informes {
         while(aux != null) {
             if(aux.getTrabajador().getTotalSalario() > salarioBuscado) aux = aux.getSiguiente();
             else {
-                fw.write(aux.getTrabajador().getNombre());
+                fw.write(aux.getTrabajador().getNombre()+"\n");
                 fw.write(String.valueOf(aux.getTrabajador().getTotalSalario()));
                 fw.write("\n");
+                aux = aux.getSiguiente();
             }
         }
         fw.close();
@@ -70,5 +74,17 @@ public class Informes {
                     alto.getTotalSalario(), bajo.getNombre(), bajo.getTotalSalario()));
         }
         fw.close();
+    }
+    
+    public static String leerArchivo(String direccion) throws FileNotFoundException, IOException {
+        FileReader fr = new FileReader(direccion);
+        BufferedReader br = new BufferedReader(fr);
+        String salida = "";
+        String linea = br.readLine();
+        while(linea != null) {
+            salida+=linea + "\n";
+            linea = br.readLine();
+        }
+        return salida;
     }
  }
