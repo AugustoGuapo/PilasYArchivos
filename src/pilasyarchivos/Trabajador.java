@@ -80,16 +80,17 @@ public class Trabajador {
     
     private float calcularSalario(int horas, float salarioPorHora) {
         float salida;
-        if(horas >48) {
-            salida = (40*salarioPorHora) + (8*(salarioPorHora*2)) + ((horas-48)*(salarioPorHora*3));
+        if(horas <=40) {
+            
+            salida = horas*salarioPorHora;
         }
         
-        else if (horas > 40) {
-            salida = (40*salarioPorHora) + (horas-40*(salarioPorHora*2));
+        else if (horas > 40 & horas <=48) {
+            salida = (40*salarioPorHora) + ((horas-40)*(salarioPorHora*2));
         } 
         
         else {
-            salida = horas*salarioPorHora;
+            salida = (40*salarioPorHora) + (8*(salarioPorHora*2)) + ((horas-48)*(salarioPorHora*3));
         }
         return salida;
     }

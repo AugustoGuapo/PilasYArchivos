@@ -20,27 +20,30 @@ public class Informes {
     private File archivo;
     
     public Informes(){};
-    
+  
     public static void informeMaximos(Pila p, float salarioBuscado) throws IOException {
         FileWriter fw = new FileWriter("TRABAJADORESMAX.txt");
         NodoTrabajador aux = p.cima();
-        if(aux.getTrabajador().getTotalSalario() < salarioBuscado) fw.write("NO SE ENCONTRÓ NINGÚN TRABAJADOR CON ESE SALARIO");
-        else {
-            while(aux != null && aux.getTrabajador().getTotalSalario() > salarioBuscado ) {
-                Trabajador trabajadorTemp = aux.getTrabajador();
-                fw.write(trabajadorTemp.getNombre()+"\n");
-                fw.write(String.valueOf(trabajadorTemp.getTotalSalario()));
+        boolean existe = false;
+        while(aux != null) {
+            if(aux.getTrabajador().getTotalSalario() < salarioBuscado) aux = aux.getSiguiente();
+            else {
+                fw.write(aux.getTrabajador().getNombre()+"\n");
+                fw.write(String.valueOf(aux.getTrabajador().getTotalSalario()));
                 fw.write("\n");
                 aux = aux.getSiguiente();
+                existe = true;
             }
-            fw.close();
         }
-        JOptionPane.showMessageDialog(null, "Archivo completado");
+        String mensaje = existe ? "Archivo completado" : "No existen salarios por encima del valor ingresado";
+JOptionPane.showMessageDialog(null, mensaje);
+        fw.close();
     }
     
     public static void informeMinimos(Pila p, float salarioBuscado) throws IOException {
         FileWriter fw = new FileWriter("TRABAJADORESMIN.txt");
         NodoTrabajador aux = p.cima();
+        boolean existe = false;
         while(aux != null) {
             if(aux.getTrabajador().getTotalSalario() > salarioBuscado) aux = aux.getSiguiente();
             else {
@@ -48,8 +51,11 @@ public class Informes {
                 fw.write(String.valueOf(aux.getTrabajador().getTotalSalario()));
                 fw.write("\n");
                 aux = aux.getSiguiente();
+                existe = true;
             }
         }
+        String mensaje = existe ? "Archivo completado" : "No existen salarios por debajo del valor ingresado";
+JOptionPane.showMessageDialog(null, mensaje);
         fw.close();
     }
     
@@ -61,18 +67,19 @@ public class Informes {
             return;
         }
         else {
-            Trabajador alto = p.cima().getTrabajador();
-            Trabajador bajo = p.ultimo().getTrabajador();
+            Trabajador bajo = p.cima().getTrabajador();
+            Trabajador alto = p.ultimo().getTrabajador();
             fw.write(String.format("""
-                                   Promedio de salario %.2f
-                                   Salario m\u00e1s alto
+                                   Promedio de salario: %.2f
+                                   SALARIO MÁS ALTO:
                                    Nombre: %s
                                    Salario: %.2f
-                                   Salario m\u00e1s bajo
+                                   SALARIO MÁS BAJO:
                                    Nombre: %s
                                    Salario: %.2f""",p.calcularPromedio(), alto.getNombre(), 
                     alto.getTotalSalario(), bajo.getNombre(), bajo.getTotalSalario()));
         }
+        JOptionPane.showMessageDialog(null, "Archivo completado");
         fw.close();
     }
     
